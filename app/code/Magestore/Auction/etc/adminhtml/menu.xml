@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_Auction
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Magestore_Auction::auction" title="Auction" module="Magestore_Auction" sortOrder="10" resource="Magestore_Auction::auction" parent="Magento_Catalog::catalog"/>
+
+        <!-- Magestore_Auction::auction_auction -->
+
+        <add id="Magestore_Auction::auction_auctions" title="Manage Auctions" module="Magestore_Auction" sortOrder="10" parent="Magestore_Auction::auction" action="auctionadmin/auction" resource="Magestore_Auction::auctions"/>
+
+        <add id="Magestore_Auction::auction_transactions" title="Manage Transactions" module="Magestore_Auction" sortOrder="15" parent="Magestore_Auction::auction" action="auctionadmin/transaction" resource="Magestore_Auction::auction_transactions"/>
+
+        <add id="Magestore_Auction::settings" title="Settings" module="Magestore_Auction" sortOrder="20" parent="Magestore_Auction::auction" action="adminhtml/system_config/edit/section/auction" resource="Magestore_Auction::settings"/>
+
+        <!-- End Magestore_Auction::auction_auction -->
+    </menu>
+</config>

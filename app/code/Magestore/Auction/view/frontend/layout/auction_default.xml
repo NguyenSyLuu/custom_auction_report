@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_Pdfinvoiceplus
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="My Auction (All Pages)" design_abstraction="custom">
+    <body>
+        <attribute name="class" value="account"/>
+        <referenceContainer name="sidebar.main">
+            <block class="Magento\Framework\View\Element\Template" name="customer_account_navigation" before="-" template="Magestore_Auction::html/collapsible.phtml">
+                <arguments>
+                    <argument name="block_title" xsi:type="string" translate="true">My Auction Information</argument>
+                    <argument name="block_css" xsi:type="string">block-collapsible-nav</argument>
+                </arguments>
+                <block class="Magento\Framework\View\Element\Html\Links" name="auction_customer_account_navigation" before="-" template="Magento_Customer::account/navigation.phtml">
+                    <block class="Magento\Framework\View\Element\Html\Link\Current" name="customer-account-navigation-account-link">
+                        <arguments>
+                            <argument name="label" xsi:type="string" translate="true">Account Dashboard</argument>
+                            <argument name="path" xsi:type="string">customer/account</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Framework\View\Element\Html\Link\Current" name="my-bids">
+                        <arguments>
+                            <argument name="label" xsi:type="string" translate="true">My Bids</argument>
+                            <argument name="path" xsi:type="string">auction/index/mybids</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Framework\View\Element\Html\Link\Current" name="my-autobids">
+                        <arguments>
+                            <argument name="label" xsi:type="string" translate="true">My Autobids</argument>
+                            <argument name="path" xsi:type="string">auction/index/myautobid</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Framework\View\Element\Html\Link\Current" name="my-watched">
+                        <arguments>
+                            <argument name="label" xsi:type="string" translate="true">My watchlist Auctions</argument>
+                            <argument name="path" xsi:type="string">auction/index/watchlist</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Framework\View\Element\Html\Link\Current" name="email-setting">
+                        <arguments>
+                            <argument name="label" xsi:type="string" translate="true">Configs</argument>
+                            <argument name="path" xsi:type="string">auction/index/configs</argument>
+                        </arguments>
+                    </block>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

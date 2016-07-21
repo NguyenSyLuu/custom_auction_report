@@ -1,0 +1,222 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Product view template
+ *
+ * @var $this Magestore\Auction\Block\Auction
+ * @var $auction Magestore\Auction\Model\Auction
+ */
+
+?>
+<?php $auction = $this->getAuction(); ?>
+<?php if($auction): ?>
+    <?php if($auction->isInProcessing()): ?>
+    <ul id="auction_block">
+        <li class="auction-block-row">
+            <ul class="auction-block-row-ul">
+                <li class="auction-block-col-left title-timebox">
+                    <span><?php echo __('Time left for Auction:') ?></span>
+                </li>
+                <li class="auction-block-col-right">
+                    <div class="auction_timer" id="countdown_<?php echo $auction->getProductId() ?>" product-id="<?php echo $auction->getProductId() ?>" data-seconds-left="<?php echo $auction->getTimeLeft() ?>" ></div>
+                </li>
+            </ul>
+        </li>
+        <li class="auction-block-row">
+            <ul class="auction-block-row-ul">
+                <li class="auction-block-col-left">
+                    <span><?php echo __('Close Time:') ?></span>
+                </li>
+                <li class="auction-block-col-right close-time">
+                    <span><?php echo $auction->getLocaleEndTime() ?></span>
+                </li>
+            </ul>
+        </li>
+        <li class="auction-block-row">
+            <ul class="auction-block-row-ul">
+                <li class="auction-block-col-left">
+                    <span><?php echo __('Current Price:') ?></span>
+                </li>
+                <li class="auction-block-col-right cur-bid" id="current_bid">
+                    <span><?php echo $auction->getCurrentPriceText().__('(<a href="%1" >%2 bids</a>)',$this->getViewBidUrl(),$auction->getTotalBids()) ?></span>
+                </li>
+            </ul>
+        </li>
+        <?php if($auction->getTotalBids()): ?>
+            <li class="auction-block-row">
+                <ul class="auction-block-row-ul">
+                    <li class="auction-block-col-left">
+                        <span><?php echo __('Bidder Name:') ?></span>
+                    </li>
+                    <li class="auction-block-col-right" id="bidder_name">
+                        <span><?php echo $auction->getCurrentBidderName() ?></span>
+                    </li>
+                </ul>
+            </li>
+        <?php endif; ?>
+        <li class="auction-block-row">
+            <ul class="auction-block-row-ul">
+                <li class="auction-block-col-left">
+                    <span><?php echo __('Bid Increment:') ?></span>
+                </li>
+                <li class="auction-block-col-right incre-bid">
+                    <span><?php echo $auction->getIncrementPrice() ?></span>
+                </li>
+            </ul>
+        </li>
+        <li class="auction-block-row">
+            <ul class="auction-block-row-ul">
+                <li class="auction-block-col-left">
+                    <span><?php echo __('Start Price:') ?></span>
+                </li>
+                <li class="auction-block-col-right start-price">
+                    <span><?php echo $auction->getStartPrice() ?></span>
+                </li>
+            </ul>
+        </li>
+        <?php if($this->autoBid()): ?>
+        <li class="auction-block-row">
+            <ul class="auction-block-row-ul">
+                <li class="auction-block-col">
+                    <div class="field choice">
+                        <input type="radio" name="autobid" id="autobid" value="0" title="<?php echo __('Standard bid') ?>" class="checkbox" checked="checked">
+                        <label class="label" for="change-password"><span><?php echo __('Standard bid') ?></span></label>
+                    </div>
+                    <div class="field choice">
+                        <input type="radio" name="autobid" id="autobid" value="1" title="<?php echo __('Auto bid') ?>" class="checkbox">
+                        <label class="label" for="change-password"><span><?php echo __('Auto bid') ?></span></label>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        <?php else: ?>
+            <li class="auction-block-row" style="display: none">
+                <ul class="auction-block-row-ul">
+                    <li class="auction-block-col-bid">
+                        <div class="field choice">
+                            <input type="radio" name="autobid" id="autobid" value="0" title="<?php echo __('Standrad bid') ?>" class="checkbox" checked="checked">
+                            <label class="label" for="change-password"><span><?php echo __('Standrad bid') ?></span></label>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        <?php endif; ?>
+        <?php if($this->isLogedIn()): ?>
+            <li class="auction-block-row">
+                <?php if(!$auction->isInWatchList($this->getCurrentCustomerId())): ?>
+                    <a class="add_watch_list" href="<?php echo $this->getUrl('auction/index/addtowatchlist',['auction_id' => $auction->getId(),'product_id'=>$auction->getProductId()]) ?>"><?php echo __('Add to watch list') ?></a>
+                <?php else: ?>
+                    <a class="remove_watch_list" href="<?php echo $this->getUrl('auction/index/removeFromWatchList',['auction_id' => $auction->getId(),'product_id'=>$auction->getProductId()]) ?>"><?php echo __('Remove from watch list') ?></a>
+                <?php endif; ?>
+            </li>
+        <?php endif; ?>
+        <li class="auction-block-row">
+            <ul class="auction-block-row-ul">
+                <li class="auction-block-col full-width">
+                    <span class="suggess"><?php echo $this->getSuggess($auction) ?></span>
+                </li>
+                <li class="auction-block-col full-width">
+                    <div class="fieldset1">
+                        <div class="field qty">
+                            <div class="control">
+                                <input type="text" name="bid_price" id="bid_price" value="<?php echo $auction->getMinNextPrice() ?>" title="<?php echo __('Enter your bid') ?>" placeholder="<?php echo __('Enter Your Bid') ?>" class="input-text qty" data-validate="{&quot;required-number&quot;:true,&quot;validate-item-quantity&quot;:{&quot;minAllowed&quot;:1}}">
+                            </div>
+                        </div>
+                        <div class="field actions">
+                            <button type="button" <?php if(!$this->enableBid()): ?>disabled<?php endif; ?> title="<?php echo __('Place Bid') ?>" class="action place-bid tocart" id="bid" data-mage-init='{"magestore/auctionbox": {"bid_url":"<?php echo $this->getUrl('auction/index/bid',array('_secure'=>true)) ?>","autoBid_url":"<?php echo $this->getUrl('auction/index/autoBid',array('_secure'=>true)) ?>","update_url":"<?php echo $this->getUrl('auction/index/update',array('_secure'=>true)) ?>","update_time":"<?php echo $this->getUpdateTime() ?>","auction_id":"<?php echo $auction->getId() ?>","product_id":"<?php echo $auction->getProductId() ?>"}}'>
+                                <span><?php echo __('PLACE BID') ?></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="bid_success" style="display:none"></div>
+                    <div id="bid_error" style="display:none"></div>
+                </li>
+            </ul>
+        </li>
+        <?php if(!$this->isLogedIn()): ?>
+            <li class="auction-block-row" id="login_to_bid">
+                <ul class="auction-block-row-ul">
+                    <li class="auction-block-col-bid">
+                        <span><?php echo __('Please <a href="%1" >login</a> to bid',$this->getUrl('auction/index/redirectToLogin',['product_id' => $auction->getProductId()])) ?></span>
+                    </li>
+                </ul>
+            </li>
+        <?php elseif(!$this->hasBidName()): ?>
+            <li class="auction-block-row">
+                <ul class="auction-block-row-ul">
+                    <li class="auction-block-col-bid">
+                        <span><?php echo __('Please <a href="%1" >create bidder name</a> to bid',$this->getUrl('auction/index/configs',['product_id' => $auction->getProductId()])) ?></span>
+                    </li>
+                </ul>
+            </li>
+        <?php endif; ?>
+    </ul>
+    <script>
+        require(['jquery','magestore/countdown'], function($){
+            $('.auction_timer').startTimer({timeText:'<?php echo __('<span div="height-timebox"><span id="daytime">%d&nbsp;</span><span id="hourtime">%h</span><span id="tspace">:</span><span id="mtime">%m</span><span id="tspace">:</span><span id="sctime">%s</span></span>') ?>'});
+        });
+    </script>
+        <?php else: ?>
+        <h4><?php echo __('Completed Auction') ?></h4>
+        <?php if ($this->isWinner()): ?>
+            <div class="won-message">
+                <h3><?php echo __('Congratulations!') ?></h3>
+                <span><?php echo $this->getWonMessage() ?></span>
+            </div>
+        <?php endif; ?>
+        <div class="auction-content">
+            <div id="auction_info_<?php echo $auction->getId() ?>">
+                <ul id="auction_block">
+                    <li class="auction-block-row">
+                        <ul class="auction-block-row-ul">
+                            <li class="auction-block-col">
+                                <span><?php echo __('Close Price') ?></span>
+                            </li>
+                            <li class="auction-block-col">
+                                <span><?php echo $auction->getCurrentPriceText().__('(<a href="%1" >%2 bids</a>)',$this->getViewBidUrl(),$auction->getTotalBids()) ?></span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="auction-block-row">
+                        <ul class="auction-block-row-ul">
+                            <li class="auction-block-col">
+                                <span><?php echo __('Winner') ?></span>
+                            </li>
+                            <li class="auction-block-col">
+                                <span><?php echo $auction->getWinnerName() ?></span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="auction-block-row">
+                        <ul class="auction-block-row-ul">
+                            <li class="auction-block-col">
+                                <span><?php echo __('Start Time') ?></span>
+                            </li>
+                            <li class="auction-block-col">
+                                <span><?php echo $auction->getLocaleStartTime() ?></span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="auction-block-row">
+                        <ul class="auction-block-row-ul">
+                            <li class="auction-block-col">
+                                <span><?php echo __('End Time') ?></span>
+                            </li>
+                            <li class="auction-block-col">
+                                <span><?php echo $auction->getLocaleEndTime() ?></span>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <?php endif; ?>
+<?php endif; ?>
+

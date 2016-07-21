@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magestore
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category    Magestore
+ * @package     Magestore_Giftvoucher
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="magestore_auction_completed_admin" label="Auction completed to admin" file="auction_completed_to_admin.html" type="html" module="Magestore_Auction" area="frontend"/>
+    <template id="magestore_auction_completed_watcher" label="Auction completed to watcher" file="auction_completed_to_watcher.html" type="html" module="Magestore_Auction" area="frontend"/>
+    <template id="magestore_auction_new_autobid_tobidder" label="New auto bid to bidder" file="new_autobid_to_bidder.html" type="html" module="Magestore_Auction" area="frontend"/>
+    <template id="magestore_auction_new_bid_toadmin" label="New bid to admin" file="new_bid_to_admin.html" type="html" module="Magestore_Auction" area="frontend"/>
+    <template id="magestore_auction_new_bid_tobidder" label="New bid to bidder" file="new_bid_to_bidder.html" type="html" module="Magestore_Auction" area="frontend"/>
+    <template id="magestore_auction_new_bid_towatcher" label="New bid to Watcher" file="new_bid_to_watcher.html" type="html" module="Magestore_Auction" area="frontend"/>
+    <template id="magestore_cancelation_bid" label="Cancel bid" file="cancel_bid.html" type="html" module="Magestore_Auction" area="frontend"/>
+    <template id="magestore_auction_notice_tofailder" label="Failder" file="failder.html" type="html" module="Magestore_Auction" area="frontend"/>
+    <template id="magestore_highest_bid" label="Hightest Bid" file="hightest_bid.html" type="html" module="Magestore_Auction" area="frontend"/>
+    <template id="magestore_auction_notice_towinner" label="Winner" file="winner.html" type="html" module="Magestore_Auction" area="frontend"/>
+    <template id="magestore_auction_over_autobid_tobidder" label="Over auctobid to bidder" file="over_autobid.html" type="html" module="Magestore_Auction" area="frontend"/>
+    <template id="magestore_auction_over_bid_tobidder" label="Over bid to bidder" file="over_bid.html" type="html" module="Magestore_Auction" area="frontend"/>
+</config>

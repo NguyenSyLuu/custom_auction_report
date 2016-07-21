@@ -1,0 +1,12 @@
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="page_block_html_topmenu_gethtml_before">
+        <observer name="auction_catalog_add_topmenu_items" instance="Magestore\Auction\Model\Observer\AddToTopMenu" />
+    </event>
+    <event name="sales_quote_item_qty_set_after">
+        <observer name="update_auction_item_price" instance="Magestore\Auction\Model\Observer\Updateprice" />
+    </event>
+    <event name="catalog_product_is_salable_after">
+        <observer name="auction_catalog_product_is_salable_after" instance="Magestore\Auction\Model\Observer\IsSaleAble" />
+    </event>
+</config>

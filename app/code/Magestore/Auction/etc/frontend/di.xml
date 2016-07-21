@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magento\CatalogSearch\Model\Adapter\Mysql\Plugin\Aggregation\Category\DataProvider">
+        <plugin name="auction_catalog_search_Aggregation_category_dataProvider" type="Magestore\Auction\Plugin\Aggregation\Category\DataProvider"/>
+    </type>
+    <!--<type name="Magento\Catalog\Model\Layer">-->
+        <!--<plugin name="Auction_Magento_Catalog_Model_Layer" type="Magestore\Auction\Plugin\Category\Model\Layer"/>-->
+    <!--</type>-->
+    <preference for="Magento\Catalog\Block\Product\ListProduct" type="Magestore\Auction\Block\Product\ListProduct" />
+    <preference for="Magento\Framework\App\PageCache\Kernel" type="Magestore\Auction\Model\Rewrite\PageCache\Kernel" />
+    <type name="Magento\Catalog\Pricing\Price\BasePrice">
+        <plugin name="set_final_prices" type="Magestore\Auction\Model\Plugin\Catalog\ProductValue"/>
+    </type>
+</config>

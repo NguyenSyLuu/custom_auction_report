@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_Auction
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="magestore" translate="label" sortOrder="450">
+            <label>magestore</label>
+        </tab>
+        <section id="auction" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Auction</label>
+            <tab>magestore</tab>
+            <resource>Magestore_Auction::config_auction</resource>
+            <group id="general" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enable" translate="label comment" type="select" sortOrder="0"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <comment>Enable frontend</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="delay_time" translate="label comment" type="select" sortOrder="10"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Automatically update auction information after</label>
+                    <comment>second(s). The longer time you set, the faster loading for server bandwidth</comment>
+                    <source_model>Magestore\Auction\Model\Source\Delaytime</source_model>
+                </field>
+                <!--<field id="show_price" translate="label comment" type="select" sortOrder="20"  showInDefault="1" showInWebsite="1" showInStore="1">-->
+                    <!--<label>Show actual price</label>-->
+                    <!--<comment>Show actual products price on auction listing page.</comment>-->
+                    <!--<source_model>Magestore\Auction\Model\Source\Showprice</source_model>-->
+                <!--</field>-->
+                <field id="won_message" translate="label comment" type="textarea" sortOrder="30"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Winning Message</label>
+                    <comment>Customize the message shown for winner(s) in Auction box.</comment>
+                </field>
+                <field id="cancel_bid" translate="label comment" type="select" sortOrder="40"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cancel Bid</label>
+                    <comment>The customer able to cancel his bid</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="autobid" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Auto Bid</label>
+                <field id="enable_autobid" translate="label comment" type="select" sortOrder="0"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Auto Bid</label>
+                    <comment>If enabled, customers can set their maximum affordable price and the system will auto-bid for them.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <!--<field id="auto_bid" translate="label comment" type="select" sortOrder="10"  showInDefault="1" showInWebsite="1" showInStore="1">-->
+                    <!--<label>Allow customers to change auto bid price</label>-->
+                    <!--<source_model>Magestore\Auction\Model\Source\Bidderstatus</source_model>-->
+                <!--</field>-->
+            </group>
+            <group id="auction_separator_biddername" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Bidder Name</label>
+                <field id="bidder_name_type" translate="label comment" type="select" sortOrder="0"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Bidder Name</label>
+                    <source_model>Magestore\Auction\Model\Source\Biddernametype</source_model>
+                </field>
+                <field id="bidder_name_prefix" translate="label comment" type="text" sortOrder="10"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Bidder Name Prefix</label>
+                    <comment>This is an affix placed before bidder name and used to generate bidder name with numbers by system. </comment>
+                    <depends>
+                        <field id="bidder_name_type">1</field>
+                    </depends>
+                </field>
+            </group>
+            <!--<group id="tax" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">-->
+                <!--<label>Tax Configuration</label>-->
+                <!--<field id="is_included_tax" translate="label comment" type="select" sortOrder="0"  showInDefault="1" showInWebsite="1" showInStore="1">-->
+                    <!--<label>Auction Price Type</label>-->
+                    <!--<source_model>Magestore\Auction\Model\Source\Pricetype</source_model>-->
+                <!--</field>-->
+            <!--</group>-->
+            <group id="emails" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Email Template</label>
+                <field id="template_sent_to_admin_separator" translate="label comment" type="select" sortOrder="0"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Template of emails sent to admin when</label>
+                    <frontend_model>Magestore\Auction\Block\Adminhtml\System\Config\Separator</frontend_model>
+                </field>
+                <field id="newbid_to_admin_email_template" translate="label comment" type="select" sortOrder="5"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>A new bid is placed</label>
+                    <source_model>Magestore\Auction\Model\System\Templates\Newbidtoadmin</source_model>
+                </field>
+                <field id="notice_auction_completed" translate="label comment" type="select" sortOrder="10"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>An auction is complete</label>
+                    <source_model>Magestore\Auction\Model\System\Templates\Auctioncompleted</source_model>
+                </field>
+                <field id="template_sent_to_watcher_separator" translate="label comment" type="select" sortOrder="15"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Template of emails sent to watcher when</label>
+                    <frontend_model>Magestore\Auction\Block\Adminhtml\System\Config\Separator</frontend_model>
+                </field>
+                <field id="newbid_to_watcher_email_template" translate="label comment" type="select" sortOrder="20"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Someone places a new bid in his watched auction</label>
+                    <source_model>Magestore\Auction\Model\System\Templates\Newbidtowatcher</source_model>
+                </field>
+                <field id="notice_auction_completed_towatcher" translate="label comment" type="select" sortOrder="25"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>His watched auction completes</label>
+                    <source_model>Magestore\Auction\Model\System\Templates\Auctioncompletedtowatcher</source_model>
+                </field>
+                <field id="template_sent_to_bidder_separator" translate="label comment" type="select" sortOrder="30"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Template of emails send to bidder when</label>
+                    <frontend_model>Magestore\Auction\Block\Adminhtml\System\Config\Separator</frontend_model>
+                </field>
+                <field id="newbid_to_bidder_email_template" translate="label comment" type="select" sortOrder="35"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>He places a new bid</label>
+                    <source_model>Magestore\Auction\Model\System\Templates\Newbidtobidder</source_model>
+                </field>
+                <field id="newautobid_to_bidder_email_template" translate="label comment" type="select" sortOrder="40"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>He places a new auto bid</label>
+                    <source_model>Magestore\Auction\Model\System\Templates\Newautobidtobidder</source_model>
+                </field>
+                <field id="overbid_to_bidder_email_template" translate="label comment" type="select" sortOrder="45"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Someone places a bid that is higher than his bid</label>
+                    <source_model>Magestore\Auction\Model\System\Templates\Overbidtobidder</source_model>
+                </field>
+                <field id="overautobid_to_bidder_email_template" translate="label comment" type="select" sortOrder="50"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Someone places a bid that is higher than his auto bid</label>
+                    <source_model>Magestore\Auction\Model\System\Templates\Overautobidtobidder</source_model>
+                </field>
+                <field id="notice_cancel_bid_email_template" translate="label comment" type="select" sortOrder="55"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>He cancels one of his bid</label>
+                    <source_model>Magestore\Auction\Model\System\Templates\Noticecancelation</source_model>
+                </field>
+                <field id="notice_highest_bid_email_template" translate="label comment" type="select" sortOrder="60"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>He places the highest bid</label>
+                    <source_model>Magestore\Auction\Model\System\Templates\Noticehighest</source_model>
+                </field>
+                <field id="notice_winner_email_template" translate="label comment" type="select" sortOrder="65"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>He is the winning bidder at an auction</label>
+                    <source_model>Magestore\Auction\Model\System\Templates\Noticewinner</source_model>
+                </field>
+                <field id="notice_failder_email_template" translate="label comment" type="select" sortOrder="70"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>He is not the winning bidder at an auction</label>
+                    <source_model>Magestore\Auction\Model\System\Templates\Noticefailder</source_model>
+                </field>
+            </group>
+            <group id="implement" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Implement Code</label>
+                <field id="notice_failder_email_template" translate="label comment" type="select" sortOrder="70"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Implement Code</label>
+                    <frontend_model>Magestore\Auction\Block\Adminhtml\System\Config\Implementcode</frontend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
