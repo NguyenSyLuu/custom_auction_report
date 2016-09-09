@@ -34,7 +34,7 @@ use Magento\Framework\App\Filesystem\DirectoryList;
 class Save extends \Magestore\Auction\Controller\Adminhtml\Auction
 {
     /**
-     * @var \Magento\Framework\View\Result\PageFactory
+     * @return $this|\Magento\Framework\Controller\Result\Redirect
      */
     public function execute()
     {
@@ -63,6 +63,8 @@ class Save extends \Magestore\Auction\Controller\Adminhtml\Auction
             if(isset($data['day_to_buy'])&&$data['day_to_buy']<1)
                 $data['day_to_buy']=1;
 
+            $data = $this->processData($data);
+
             $model->setData($data)
                 ->updateStatus()
                 ->setStoreViewId($storeViewId);
@@ -89,4 +91,17 @@ class Save extends \Magestore\Auction\Controller\Adminhtml\Auction
 
         return $resultRedirect->setPath('*/*/');
     }
+
+    public function processData($data){
+        $data['init_price'] = abs($data['init_price']);
+        $data['reserved_price'] = abs($data['reserved_price']);
+        $data['min_interval_price'] = abs($data['min_interval_price']);
+        $data['max_interval_price'] = abs($data['max_interval_price']);
+        $data['limit_time'] = abs($data['limit_time']);
+        $data['multi_winner'] = abs($data['multi_winner']);
+        $data['day_to_buy'] = abs($data['day_to_buy']);
+        $data['limit'] = abs($data['limit']);
+        return $data;
+    }
+
 }
