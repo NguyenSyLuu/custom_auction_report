@@ -65,6 +65,11 @@ class Save extends \Magestore\Auction\Controller\Adminhtml\Auction
 
             $data = $this->processData($data);
 
+            if($data['product_id'] == null){
+                $this->messageManager->addError(__('You have to choose the product first.'));
+                return $resultRedirect->setPath('*/*/new');
+            }
+
             $model->setData($data)
                 ->updateStatus()
                 ->setStoreViewId($storeViewId);

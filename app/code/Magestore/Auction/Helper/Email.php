@@ -181,7 +181,8 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
                 )->getTransport();
                 $transport->sendMessage();
             } catch (\Magento\Framework\Exception\MailException $ex) {
-
+                \Zend_Debug::dump($ex->getMessage());
+                exit;
             }
         }
         $this->inlineTranslation->resume();
@@ -225,7 +226,8 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
                 )->getTransport();
                 $transport->sendMessage();
             } catch (\Magento\Framework\Exception\MailException $ex) {
-
+                \Zend_Debug::dump($ex->getMessage());
+                exit;
             }
         }
         $this->inlineTranslation->resume();

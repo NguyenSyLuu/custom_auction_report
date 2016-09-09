@@ -98,6 +98,7 @@ abstract class AbstractAction extends \Magento\Backend\App\Action
     protected $_fileFactory;
 
     protected $_productFactory;
+
     /**
      * @var \Magento\Framework\Controller\Result\JsonFactory
      */

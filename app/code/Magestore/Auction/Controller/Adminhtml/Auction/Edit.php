@@ -32,7 +32,7 @@ namespace Magestore\Auction\Controller\Adminhtml\Auction;
 class Edit extends \Magestore\Auction\Controller\Adminhtml\Auction
 {
     /**
-     * @var \Magento\Framework\View\Result\PageFactory
+     * @return $this|\Magento\Framework\View\Result\Page
      */
     public function execute()
     {

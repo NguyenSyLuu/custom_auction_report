@@ -380,7 +380,7 @@ class Bid extends \Magento\Framework\Model\AbstractModel
         $winners = $this->getCollection()
             ->joinBidderInfo()
             ->addFieldToFilter('auction_id',$auction_id)
-            ->addFieldToFilter('status',self::BID_WINNER);
+            ->addFieldToFilter('main_table.status',self::BID_WINNER);
         $emails = [];
         foreach($winners as $_winner){
             $emails[] = $_winner->getCustomerEmail();

@@ -38,6 +38,10 @@ class Product extends \Magento\Backend\Block\Widget\Grid\Extended implements Tab
     protected $_status;
     protected $_visibility;
     protected $_setsFactory;
+    /**
+     * @var \Magento\Backend\Model\Session
+     */
+    protected $_backendSession;
 
     /**
      * @param \Magento\Backend\Block\Template\Context $context
@@ -58,6 +62,7 @@ class Product extends \Magento\Backend\Block\Widget\Grid\Extended implements Tab
         \Magento\Framework\ObjectManagerInterface $objectManager,
         \Magento\Catalog\Model\Product\Visibility $visibility,
         \Magento\Framework\Module\Manager $moduleManager,
+        \Magento\Backend\Model\Session $backendSession,
         array $data = []
     ) {
         $this->_productFactory = $productFactory;
@@ -70,6 +75,7 @@ class Product extends \Magento\Backend\Block\Widget\Grid\Extended implements Tab
         $this->_setsFactory = $setsFactory;
         $this->moduleManager = $moduleManager;
         $this->_objectManager = $objectManager;
+        $this->_backendSession = $backendSession;
         parent::__construct($context, $backendHelper, $data);
     }
 
@@ -108,6 +114,7 @@ class Product extends \Magento\Backend\Block\Widget\Grid\Extended implements Tab
             'html_name' => 'aproducts[]',
             'align' => 'center',
             'index' => 'entity_id',
+            'values' => $this->getSelectedAuctionProducts()
         ));
 
 
@@ -208,5 +215,14 @@ class Product extends \Magento\Backend\Block\Widget\Grid\Extended implements Tab
     public function isHidden()
     {
         return false;
+    }
+
+    public function getSelectedAuctionProducts(){
+        $_product_id = $this->_backendSession->getChooseProduct();
+        if(isset($_product_id)){
+            return [$_product_id];
+        } else {
+            return [];
+        }
     }
 }

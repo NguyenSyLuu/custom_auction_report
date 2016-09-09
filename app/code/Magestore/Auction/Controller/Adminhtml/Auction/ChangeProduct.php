@@ -32,7 +32,7 @@ namespace Magestore\Auction\Controller\Adminhtml\Auction;
 class ChangeProduct extends \Magestore\Auction\Controller\Adminhtml\Auction
 {
     /**
-     * @var \Magento\Framework\View\Result\PageFactory
+     * @return \Magento\Framework\Controller\Result\Json
      */
     public function execute()
     {
@@ -45,9 +45,11 @@ class ChangeProduct extends \Magestore\Auction\Controller\Adminhtml\Auction
             $array['id'] = $product->getId();
             $array['name'] = $product->getName();
             $array['url'] = $this->getUrl('catalog/product/edit', array('id' => $product_id));
+            $objectManager->get('Magento\Backend\Model\Session')->setChooseProduct($product_id);
         }
         $result = $this->getJsonFactory()->create();
         $result->setData($array);
+
         return $result;
     }
 }

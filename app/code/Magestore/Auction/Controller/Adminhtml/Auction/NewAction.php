@@ -34,7 +34,8 @@ class NewAction extends \Magestore\Auction\Controller\Adminhtml\Auction
     public function execute()
     {
         $resultForward = $this->_resultForwardFactory->create();
-
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $objectManager->get('Magento\Backend\Model\Session')->setChooseProduct('');
         return $resultForward->forward('edit');
     }
 }
